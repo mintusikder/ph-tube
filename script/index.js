@@ -1,3 +1,10 @@
+const removeActive = () => {
+  const activeBtn = document.getElementsByClassName("active");
+  for (let btn of activeBtn) {
+    btn.classList.remove("active");
+  }
+};
+
 function loadCategories() {
   //face
   fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -19,8 +26,9 @@ const loadCategoriesVideo = (id) => {
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
+      removeActive();
       const clickBtn = document.getElementById(`btn-${id}`);
-     clickBtn.classList.add("active")
+      clickBtn.classList.add("active");
       displayVideo(data.category);
     });
   // console.log(url)
