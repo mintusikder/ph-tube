@@ -11,14 +11,14 @@ function loadVideo() {
     .then((res) => res.json())
     .then((data) => displayVideo(data.videos));
 }
-//load category video 
-const loadCategoriesVideo=(id)=>{
-    const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displayVideo(data.category))
-    // console.log(url)
-}
+//load category video
+const loadCategoriesVideo = (id) => {
+  const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => displayVideo(data.category));
+  // console.log(url)
+};
 
 //displayCategories
 function displayCategories(categories) {
@@ -40,10 +40,19 @@ function displayCategories(categories) {
 //display video
 const displayVideo = (videos) => {
   const videoContainer = document.getElementById("video-container");
-  videoContainer.innerHTML = ''
+  videoContainer.innerHTML = "";
+  if (videos.length === 0) {
+    videoContainer.innerHTML = `
+      <div class="col-span-full flex flex-col text-center justify-center items-center py-20">
+      <img class="w-[120px]" src="./images/Icon.png" alt="" />
+      <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
+    </div>
+    `;
+    return;
+  }
   videos.forEach((video) => {
-    console.log(video);
     const videoCard = document.createElement("div");
+
     videoCard.innerHTML = `
   <div class="card bg-base-100 ">
         <figure class="relative">
@@ -57,14 +66,15 @@ const displayVideo = (videos) => {
          <div>
           <div class="avatar">
             <div class="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
-              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              <img src="${video.authors[0].profile_picture} " />
             </div>
           </div>
          </div>
 
           <div>
             <h1 class="text-sm font-semibold">${video.title}</h1>
-            <p class="text-sm text-gray-400 flex gap-1 h-5">Awlad Hossain
+            <p class="text-sm text-gray-400 flex gap-1 h-5">
+          ${video.authors[0].profile_name} 
 
               <img class="w-4" src="https://img.icons8.com/?size=100&id=98A4yZTt9abw&format=png&color=000000" alt="">
             </p>
@@ -78,4 +88,3 @@ const displayVideo = (videos) => {
   });
 };
 loadCategories();
-
