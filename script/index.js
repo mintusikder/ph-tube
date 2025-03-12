@@ -17,6 +17,8 @@ function loadVideo() {
   fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then((res) => res.json())
     .then((data) => {
+      removeActive();
+      document.getElementById("btn-all").classList.add("active")
       displayVideo(data.videos);
     });
 }
