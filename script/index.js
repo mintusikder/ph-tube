@@ -44,12 +44,12 @@ const loadVideoDetails = (id) => {
 };
 
 const displayVideoDetails = (video) => {
-    console.log(video)
-    document.getElementById("video_details").showModal()
-    const detailsContainer = document.getElementById("details-container")
+  console.log(video);
+  document.getElementById("video_details").showModal();
+  const detailsContainer = document.getElementById("details-container");
 
-    detailsContainer.innerHTML =`
-   <div class="card bg-base-100 image-full w-96 shadow-sm">
+  detailsContainer.innerHTML = `
+   <div class="card bg-base-100 image-full shadow-sm">
   <figure>
     <img
       src="${video.thumbnail}"
@@ -61,9 +61,7 @@ const displayVideoDetails = (video) => {
  
   </div>
 </div>
-    `
-    
-
+    `;
 };
 
 //displayCategories
@@ -102,7 +100,9 @@ const displayVideo = (videos) => {
     videoCard.innerHTML = `
   <div class="card bg-base-100 ">
         <figure class="relative">
-          <img class="w-full h-[150px] object-cover" src="${video.thumbnail}" alt="Shoes" />
+          <img class="w-full h-[150px] object-cover" src="${
+            video.thumbnail
+          }" alt="Shoes" />
           <span
             class="absolute bottom-2 right-2 text-sm text-white bg-black px-2 rounded"
             >3hrs 56 min ago</span
@@ -122,13 +122,23 @@ const displayVideo = (videos) => {
             <p class="text-sm text-gray-400 flex gap-1 h-5">
           ${video.authors[0].profile_name} 
 
-              <img class="w-4" src="https://img.icons8.com/?size=100&id=98A4yZTt9abw&format=png&color=000000" alt="">
+                        ${
+                          video.authors[0].verified == true
+                            ? ` <img
+                class="w-4 h-4"
+                src="https://img.icons8.com/?size=100&id=98A4yZTt9abw&format=png&color=000000"
+                alt=""
+              />`
+                            : ""
+                        }
             </p>
 
             <p class="text-sm text-gray-400">${video.others.views}</p>
           </div>
         </div>
-        <button onclick="loadVideoDetails('${video.video_id}')" class="btn btn-block">Show Details</button>
+        <button onclick="loadVideoDetails('${
+          video.video_id
+        }')" class="btn btn-block">Show Details</button>
       </div>
      `;
     videoContainer.appendChild(videoCard);
